@@ -24,9 +24,9 @@ body{
 
     align-items:center;
 
-    padding:20px;
+    padding:25px;
 
-    /* BACKGROUND PINK GRADASI */
+    font-family:sans-serif;
 
     background:
     linear-gradient(
@@ -39,13 +39,46 @@ body{
     background-attachment:fixed;
 }
 
-/* CONTAINER FOTO */
+/* CONTAINER */
 
-.kolase{
+.container{
 
     width:100%;
 
     max-width:900px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:25px;
+}
+
+/* GAMBAR ATAS */
+
+.top-image{
+
+    width:100%;
+
+    max-width:500px;
+
+    animation:float 4s ease-in-out infinite;
+}
+
+.top-image img{
+
+    width:100%;
+
+    display:block;
+}
+
+/* KOlASE */
+
+.kolase{
+
+    width:100%;
 
     overflow:hidden;
 
@@ -53,8 +86,6 @@ body{
 
     box-shadow:0 10px 35px rgba(0,0,0,0.18);
 }
-
-/* FOTO */
 
 .kolase img{
 
@@ -65,26 +96,55 @@ body{
     object-fit:contain;
 }
 
-/* RESPONSIVE */
+/* ANIMASI */
+
+@keyframes float{
+
+    0%{
+        transform:translateY(0px);
+    }
+
+    50%{
+        transform:translateY(-8px);
+    }
+
+    100%{
+        transform:translateY(0px);
+    }
+}
+
+/* RESPONSIVE HP */
 
 @media(max-width:700px){
 
-    .kolase{
-
-        max-width:100%;
-
-        border-radius:10px;
+    .top-image{
+        max-width:320px;
     }
 
+    .kolase{
+        border-radius:10px;
+    }
 }
 
 </style>
 </head>
 <body>
 
-<div class="kolase">
+<div class="container">
 
-    <img src="kolase.jpg" alt="Kolase Foto">
+    <!-- GAMBAR ATAS -->
+    <div class="top-image">
+
+        <img src="love.png" alt="Love">
+
+    </div>
+
+    <!-- GAMBAR KOlASE -->
+    <div class="kolase">
+
+        <img src="kolase.jpg" alt="Kolase">
+
+    </div>
 
 </div>
 
