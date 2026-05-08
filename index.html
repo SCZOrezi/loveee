@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Random Pinterest Gallery</title>
+<title>Kolase Foto</title>
 
 <style>
 
@@ -15,81 +15,54 @@
 }
 
 body{
+
     background:#f2f2f2;
-    padding:12px;
-    overflow-x:hidden;
-    font-family:sans-serif;
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:20px;
 }
 
-/* GALLERY */
+/* CONTAINER FOTO */
 
-.gallery{
+.kolase{
 
-    display:grid;
+    width:100%;
 
-    grid-template-columns:repeat(4,1fr);
-
-    grid-auto-rows:180px;
-
-    gap:12px;
-}
-
-/* ITEM */
-
-.item{
-
-    position:relative;
+    max-width:900px;
 
     overflow:hidden;
 
-    border-radius:8px;
+    border-radius:12px;
 
-    background:#ccc;
+    box-shadow:0 10px 30px rgba(0,0,0,0.15);
 }
 
-/* FOTO */
+/* GAMBAR */
 
-.item img{
+.kolase img{
 
-    position:absolute;
+    width:100%;
 
-    width:120%;
-    height:120%;
+    display:block;
 
-    top:-10%;
-    left:-10%;
-
-    object-fit:cover;
-
-    transition:transform 8s ease-in-out;
-
-    will-change:transform;
+    object-fit:contain;
 }
 
-/* LAYOUT RANDOM */
-
-.wide{
-    grid-column:span 2;
-}
-
-.tall{
-    grid-row:span 2;
-}
-
-.big{
-    grid-column:span 2;
-    grid-row:span 2;
-}
-
-/* RESPONSIVE ANDROID */
+/* RESPONSIVE HP */
 
 @media(max-width:700px){
 
-    .gallery{
+    .kolase{
 
-        grid-template-columns:repeat(2,1fr);
-
-        grid-auto-rows:150px;
+        max-width:100%;
+        border-radius:8px;
     }
 
 }
@@ -98,117 +71,11 @@ body{
 </head>
 <body>
 
-<div class="gallery" id="gallery"></div>
+<div class="kolase">
 
-<script>
+    <img src="images/kolase.jpg" alt="Kolase Foto">
 
-/* FOTO */
-
-const photos = [
-
-    "foto1.jpg",
-    "foto2.jpg",
-    "foto3.jpg",
-    "foto4.jpg",
-    "foto5.jpg",
-    "foto6.jpg",
-    "foto7.jpg",
-    "foto8.jpg",
-    "foto9.jpg",
-    "foto10.jpg",
-    "foto11.jpg",
-    "foto12.jpg",
-    "foto13.jpg"
-
-];
-
-/* TIPE KOTAK */
-
-const layouts = [
-
-    "big",
-    "tall",
-    "wide",
-    "",
-    "",
-    "",
-    "wide",
-    "tall",
-    "",
-    "",
-    "",
-    "",
-    ""
-
-];
-
-/* ACAK FOTO */
-
-photos.sort(() => Math.random() - 0.5);
-
-/* ACAK LAYOUT */
-
-layouts.sort(() => Math.random() - 0.5);
-
-const gallery = document.getElementById("gallery");
-
-/* BUAT GALERI */
-
-photos.forEach((photo,index)=>{
-
-    const item = document.createElement("div");
-
-    item.className =
-    `item ${layouts[index % layouts.length]}`;
-
-    const img = document.createElement("img");
-
-    img.src = photo;
-
-    item.appendChild(img);
-
-    gallery.appendChild(item);
-
-});
-
-/* GERAK FOTO AESTHETIC */
-
-const images = document.querySelectorAll(".item img");
-
-images.forEach(img => {
-
-    animateImage(img);
-
-    setInterval(() => {
-
-        animateImage(img);
-
-    },8000);
-
-});
-
-function animateImage(img){
-
-    const x = random(-25,25);
-
-    const y = random(-25,25);
-
-    const scale = random(115,130) / 100;
-
-    img.style.transform =
-    `translate(${x}px, ${y}px) scale(${scale})`;
-
-}
-
-function random(min,max){
-
-    return Math.floor(
-        Math.random() * (max - min + 1)
-    ) + min;
-
-}
-
-</script>
+</div>
 
 </body>
 </html>
