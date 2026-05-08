@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Random Gallery</title>
+<title>Random Pinterest Gallery</title>
 
 <style>
 
@@ -15,12 +15,13 @@
 }
 
 body{
-    background:#f1f1f1;
-    font-family:sans-serif;
+    background:#f2f2f2;
     padding:12px;
+    overflow-x:hidden;
+    font-family:sans-serif;
 }
 
-/* GRID */
+/* GALLERY */
 
 .gallery{
 
@@ -31,42 +32,41 @@ body{
     grid-auto-rows:180px;
 
     gap:12px;
+}
 
-    width:100%;
+/* ITEM */
+
+.item{
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:8px;
+
+    background:#ccc;
 }
 
 /* FOTO */
 
-.item{
-
-    overflow:hidden;
-
-    border-radius:6px;
-
-    background:#ccc;
-
-    position:relative;
-}
-
 .item img{
 
-    width:100%;
-    height:100%;
+    position:absolute;
+
+    width:120%;
+    height:120%;
+
+    top:-10%;
+    left:-10%;
 
     object-fit:cover;
 
-    display:block;
-
-    transition:transform 8s linear;
+    transition:transform 8s ease-in-out;
 
     will-change:transform;
 }
 
-.item:hover img{
-    transform:scale(1.05);
-}
-
-/* UKURAN RANDOM */
+/* LAYOUT RANDOM */
 
 .wide{
     grid-column:span 2;
@@ -89,7 +89,7 @@ body{
 
         grid-template-columns:repeat(2,1fr);
 
-        grid-auto-rows:160px;
+        grid-auto-rows:150px;
     }
 
 }
@@ -102,90 +102,109 @@ body{
 
 <script>
 
-/* FOTO KAMU */
+/* FOTO */
 
 const photos = [
 
-    "foto1.jpg",
-    "foto2.jpg",
-    "foto3.jpg",
-    "foto4.jpg",
-    "foto5.jpg",
-    "foto6.jpg",
-    "foto7.jpg",
-    "foto8.jpg",
-    "foto9.jpg",
-    "foto10.jpg",
-    "foto11.jpg",
-    "foto12.jpg",
-    "foto13.jpg"
+    "images/foto1.jpg",
+    "images/foto2.jpg",
+    "images/foto3.jpg",
+    "images/foto4.jpg",
+    "images/foto5.jpg",
+    "images/foto6.jpg",
+    "images/foto7.jpg",
+    "images/foto8.jpg",
+    "images/foto9.jpg",
+    "images/foto10.jpg",
+    "images/foto11.jpg",
+    "images/foto12.jpg",
+    "images/foto13.jpg"
 
 ];
 
-/* TIPE LAYOUT */
+/* TIPE KOTAK */
 
 const layouts = [
 
-    "wide",
-    "tall",
     "big",
+    "tall",
+    "wide",
     "",
     "",
     "",
     "wide",
     "tall",
+    "",
+    "",
+    "",
+    "",
     ""
 
 ];
 
-/* RANDOMIZE */
+/* ACAK FOTO */
 
 photos.sort(() => Math.random() - 0.5);
+
+/* ACAK LAYOUT */
 
 layouts.sort(() => Math.random() - 0.5);
 
 const gallery = document.getElementById("gallery");
 
-/* BUAT FOTO */
+/* BUAT GALERI */
 
 photos.forEach((photo,index)=>{
 
-    const div = document.createElement("div");
+    const item = document.createElement("div");
 
-    div.className = `item ${layouts[index % layouts.length]}`;
+    item.className =
+    `item ${layouts[index % layouts.length]}`;
 
-    div.innerHTML = `
+    const img = document.createElement("img");
 
-        <img src="${photo}" loading="lazy">
+    img.src = photo;
 
-    `;
+    item.appendChild(img);
 
-    gallery.appendChild(div);
+    gallery.appendChild(item);
 
 });
 
-
-<script>
+/* GERAK FOTO AESTHETIC */
 
 const images = document.querySelectorAll(".item img");
 
 images.forEach(img => {
 
-    moveImage(img);
+    animateImage(img);
 
     setInterval(() => {
-        moveImage(img);
-    }, 8000);
+
+        animateImage(img);
+
+    },8000);
 
 });
 
-function moveImage(img){
+function animateImage(img){
 
-    const x = Math.floor(Math.random() * 40) - 20;
-    const y = Math.floor(Math.random() * 40) - 20;
+    const x = random(-25,25);
+
+    const y = random(-25,25);
+
+    const scale = random(115,130) / 100;
 
     img.style.transform =
-    `scale(1.15) translate(${x}px, ${y}px)`;
+    `translate(${x}px, ${y}px) scale(${scale})`;
+
+}
+
+function random(min,max){
+
+    return Math.floor(
+        Math.random() * (max - min + 1)
+    ) + min;
 
 }
 
