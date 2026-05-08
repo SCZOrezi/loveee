@@ -57,7 +57,9 @@ body{
 
     display:block;
 
-    transition:0.4s;
+    transition:transform 8s linear;
+
+    will-change:transform;
 }
 
 .item:hover img{
@@ -161,6 +163,31 @@ photos.forEach((photo,index)=>{
     gallery.appendChild(div);
 
 });
+
+
+<script>
+
+const images = document.querySelectorAll(".item img");
+
+images.forEach(img => {
+
+    moveImage(img);
+
+    setInterval(() => {
+        moveImage(img);
+    }, 8000);
+
+});
+
+function moveImage(img){
+
+    const x = Math.floor(Math.random() * 40) - 20;
+    const y = Math.floor(Math.random() * 40) - 20;
+
+    img.style.transform =
+    `scale(1.15) translate(${x}px, ${y}px)`;
+
+}
 
 </script>
 
